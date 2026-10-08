@@ -1,0 +1,1131 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+
+/* =========================================================
+   HOME - GLOBAL
+========================================================= */
+
+.home {
+    width: 100%;
+    min-height: 100vh;
+
+    color: $text;
+    background: $background;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    button {
+        font-family: inherit;
+        cursor: pointer;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container {
+    width: 100%;
+    max-width: 1800px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-left: clamp(30px, 4vw, 70px);
+    padding-right: clamp(30px, 4vw, 70px);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+    position: sticky;
+    top: 0;
+
+    z-index: 100;
+
+    width: 100%;
+    height: 78px;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    border-bottom: 1px solid $border;
+
+    backdrop-filter: blur(10px);
+
+    &-container {
+        width: 100%;
+        max-width: 1800px;
+        height: 100%;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        padding-left: clamp(30px, 4vw, 70px);
+        padding-right: clamp(30px, 4vw, 70px);
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 40px;
+    }
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    flex-shrink: 0;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    &-icon {
+        width: 46px;
+        height: 46px;
+
+        @include flex-center;
+
+        flex-shrink: 0;
+
+        border-radius: $radius-sm;
+
+        background: $primary;
+        color: white;
+
+        font-size: 24px;
+    }
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav {
+    display: flex;
+    align-items: center;
+
+    gap: clamp(22px, 3vw, 45px);
+
+    margin-left: auto;
+
+    a {
+        color: $text-light;
+
+        font-size: 18px;
+        font-weight: 500;
+
+        white-space: nowrap;
+
+        transition: 0.2s;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+
+    @include tablet {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-button {
+    padding: 12px 24px;
+
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: $radius-sm;
+
+    background: $primary;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.2s;
+
+    &:hover {
+        background: $primary-dark;
+    }
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    width: 100%;
+
+    padding: clamp(75px, 9vw, 130px) 0;
+
+    background: $background-soft;
+
+    &-container {
+        width: 100%;
+        max-width: 1800px;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        padding-left: clamp(30px, 4vw, 70px);
+        padding-right: clamp(30px, 4vw, 70px);
+
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1.7fr)
+            minmax(350px, 0.7fr);
+
+        align-items: center;
+
+        gap: clamp(60px, 8vw, 160px);
+    }
+
+    &-content {
+        min-width: 0;
+    }
+
+    &-label {
+        color: $primary;
+
+        font-size: 19px;
+        font-weight: 700;
+    }
+
+    h1 {
+        max-width: 1000px;
+
+        margin-top: 22px;
+
+        font-size: clamp(52px, 6vw, 82px);
+        font-weight: 700;
+        line-height: 1.12;
+    }
+
+    h1 span {
+        color: $primary;
+    }
+
+    p {
+        max-width: 760px;
+
+        margin-top: 28px;
+
+        color: $text-light;
+
+        font-size: clamp(19px, 2vw, 23px);
+        line-height: 1.8;
+    }
+
+    &-buttons {
+        display: flex;
+        flex-wrap: wrap;
+
+        gap: 16px;
+
+        margin-top: 35px;
+    }
+
+    @include tablet {
+        &-container {
+            grid-template-columns: 1fr;
+
+            gap: 60px;
+
+            text-align: center;
+        }
+
+        h1 {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        p {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &-buttons {
+            justify-content: center;
+        }
+    }
+
+    @include mobile {
+        padding: 65px 0;
+
+        &-buttons {
+            flex-direction: column;
+
+            button {
+                width: 100%;
+            }
+        }
+    }
+}
+
+
+/* =========================================================
+   HERO CARD
+========================================================= */
+
+.hero-card {
+    width: min(400px, 100%);
+
+    aspect-ratio: 1;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    @include flex-center;
+
+    flex-direction: column;
+
+    background: white;
+
+    border-radius: $radius-lg;
+
+    box-shadow: $shadow-md;
+
+    .chinese-character {
+        color: $primary;
+
+        font-size: clamp(90px, 11vw, 150px);
+        line-height: 1;
+    }
+
+    p {
+        margin-top: 18px;
+
+        color: $text;
+
+        font-size: 23px;
+        font-weight: 600;
+    }
+
+    span {
+        margin-top: 7px;
+
+        color: $text-muted;
+
+        font-size: 17px;
+    }
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section {
+    width: 100%;
+
+    padding: clamp(75px, 9vw, 120px) 0;
+
+    &-header {
+        max-width: 900px;
+
+        margin: 0 auto 60px;
+
+        text-align: center;
+
+        span {
+            color: $primary;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            margin-top: 14px;
+
+            font-size: clamp(38px, 4.5vw, 52px);
+            font-weight: 700;
+
+            line-height: 1.2;
+        }
+
+        p {
+            margin-top: 15px;
+
+            color: $text-light;
+
+            font-size: 19px;
+            line-height: 1.7;
+        }
+    }
+}
+
+
+/* =========================================================
+   FEATURE
+========================================================= */
+
+.feature-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(250px, 1fr));
+
+    gap: clamp(25px, 2.5vw, 40px);
+}
+
+.feature-card {
+    min-width: 0;
+
+    padding: clamp(28px, 3vw, 40px);
+
+    border: 1px solid $border;
+
+    border-radius: $radius-md;
+
+    transition:
+        transform 0.25s,
+        box-shadow 0.25s;
+
+    &:hover {
+        transform: translateY(-6px);
+
+        box-shadow: $shadow-sm;
+    }
+
+    .feature-icon {
+        width: 65px;
+        height: 65px;
+
+        @include flex-center;
+
+        border-radius: $radius-md;
+
+        background: #faf0ed;
+
+        font-size: 31px;
+    }
+
+    h3 {
+        margin-top: 22px;
+
+        font-size: 22px;
+        line-height: 1.4;
+    }
+
+    p {
+        margin-top: 10px;
+
+        color: $text-light;
+
+        font-size: 18px;
+        line-height: 1.75;
+    }
+}
+
+
+/* =========================================================
+   COURSE SECTION
+========================================================= */
+
+.course-section {
+    width: 100%;
+
+    background: $background-gray;
+}
+
+.course-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(280px, 1fr));
+
+    gap: clamp(25px, 2.5vw, 40px);
+}
+
+.course-card {
+    min-width: 0;
+
+    overflow: hidden;
+
+    background: white;
+
+    border: 1px solid $border;
+
+    border-radius: $radius-md;
+
+    transition:
+        transform 0.25s,
+        box-shadow 0.25s;
+
+    &:hover {
+        transform: translateY(-6px);
+
+        box-shadow: $shadow-sm;
+    }
+}
+
+
+/* =========================================================
+   COURSE IMAGE
+========================================================= */
+
+.course-image {
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    @include flex-center;
+
+    overflow: hidden;
+
+    background: #f3e3df;
+
+    color: $primary;
+
+    font-size: clamp(70px, 8vw, 100px);
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   COURSE CONTENT
+========================================================= */
+
+.course-content {
+    padding: clamp(25px, 3vw, 35px);
+
+    .course-level {
+        color: $primary;
+
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    h3 {
+        margin-top: 10px;
+
+        font-size: 29px;
+        font-weight: 700;
+
+        line-height: 1.3;
+    }
+
+    p {
+        margin-top: 12px;
+
+        color: $text-light;
+
+        font-size: 18px;
+
+        line-height: 1.75;
+    }
+
+    button {
+        margin-top: 23px;
+
+        padding: 0;
+
+        border: none;
+
+        background: transparent;
+
+        color: $primary;
+
+        font-size: 17px;
+        font-weight: 700;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+
+/* =========================================================
+   HSK LEVEL
+========================================================= */
+
+.level-section {
+    width: 100%;
+
+    padding: clamp(75px, 9vw, 120px) 0;
+}
+
+.level-list {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, minmax(130px, 1fr));
+
+    gap: clamp(15px, 1.5vw, 28px);
+}
+
+.level-item {
+    min-width: 0;
+
+    padding: 30px 15px;
+
+    border: 1px solid $border;
+
+    border-radius: $radius-md;
+
+    text-align: center;
+
+    transition:
+        border-color 0.2s,
+        transform 0.2s;
+
+    &:hover {
+        border-color: $primary;
+
+        transform: translateY(-4px);
+    }
+
+    .level-number {
+        width: 52px;
+        height: 52px;
+
+        margin: 0 auto 15px;
+
+        @include flex-center;
+
+        border-radius: 50%;
+
+        background: $primary;
+
+        color: white;
+
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    h3 {
+        font-size: 21px;
+    }
+
+    span {
+        display: block;
+
+        margin-top: 9px;
+
+        color: $text-muted;
+
+        font-size: 16px;
+    }
+}
+
+
+/* =========================================================
+   PRACTICE SECTION
+========================================================= */
+
+.practice-section {
+    width: 100%;
+
+    padding: clamp(75px, 9vw, 120px) 0;
+
+    background: $background-soft;
+}
+
+.practice-content {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.1fr)
+        minmax(0, 0.9fr);
+
+    align-items: center;
+
+    gap: clamp(60px, 8vw, 150px);
+
+    > div:first-child {
+
+        > span {
+            color: $primary;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            max-width: 750px;
+
+            margin-top: 14px;
+
+            font-size: clamp(38px, 4.5vw, 52px);
+
+            line-height: 1.2;
+        }
+
+        p {
+            max-width: 700px;
+
+            margin-top: 18px;
+
+            color: $text-light;
+
+            font-size: 19px;
+
+            line-height: 1.8;
+        }
+
+        .primary-button {
+            margin-top: 30px;
+        }
+    }
+
+    @include tablet {
+        grid-template-columns: 1fr;
+
+        gap: 60px;
+    }
+}
+
+
+/* =========================================================
+   PRACTICE GRID
+========================================================= */
+
+.practice-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(150px, 1fr));
+
+    gap: clamp(18px, 2vw, 28px);
+}
+
+.practice-card {
+    padding: clamp(30px, 3vw, 42px) 20px;
+
+    background: white;
+
+    border-radius: $radius-md;
+
+    text-align: center;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+
+    &:hover {
+        transform: translateY(-5px);
+
+        box-shadow: $shadow-sm;
+    }
+
+    span {
+        font-size: 42px;
+    }
+
+    h3 {
+        margin-top: 15px;
+
+        font-size: 19px;
+    }
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.primary-button,
+.secondary-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 52px;
+
+    padding: 14px 28px;
+
+    border-radius: $radius-sm;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s,
+        color 0.2s,
+        transform 0.2s;
+}
+
+.primary-button {
+    border: none;
+
+    background: $primary;
+
+    color: white;
+
+    &:hover {
+        background: $primary-dark;
+
+        transform: translateY(-2px);
+    }
+}
+
+.secondary-button {
+    border: 1px solid #ddd;
+
+    background: white;
+
+    color: $text;
+
+    &:hover {
+        background: #f5f5f5;
+
+        transform: translateY(-2px);
+    }
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    width: 100%;
+
+    padding-top: 75px;
+
+    background: #222;
+
+    color: white;
+
+    &-container {
+        width: 100%;
+
+        max-width: 1800px;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        padding-left: clamp(30px, 4vw, 70px);
+        padding-right: clamp(30px, 4vw, 70px);
+        padding-bottom: 55px;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        gap: clamp(60px, 8vw, 170px);
+    }
+
+    p {
+        max-width: 500px;
+
+        margin-top: 18px;
+
+        color: #aaa;
+
+        font-size: 18px;
+
+        line-height: 1.8;
+    }
+
+    &-links {
+        display: flex;
+
+        gap: clamp(50px, 6vw, 110px);
+
+        h4 {
+            margin-bottom: 18px;
+
+            font-size: 19px;
+        }
+
+        a {
+            display: block;
+
+            margin-bottom: 12px;
+
+            color: #aaa;
+
+            font-size: 17px;
+
+            transition: 0.2s;
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+
+    &-bottom {
+        padding: 23px;
+
+        border-top: 1px solid #333;
+
+        text-align: center;
+
+        color: #888;
+
+        font-size: 16px;
+    }
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1600px) {
+
+    .container,
+    .header-container,
+    .hero-container,
+    .footer-container {
+        max-width: 1900px;
+
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+
+    .hero-container {
+        grid-template-columns:
+            minmax(0, 1.8fr)
+            minmax(380px, 0.7fr);
+
+        gap: 170px;
+    }
+
+    .feature-grid,
+    .course-grid {
+        gap: 40px;
+    }
+
+    .level-list {
+        gap: 28px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@include tablet {
+
+    .container,
+    .header-container,
+    .hero-container,
+    .footer-container {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .feature-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .course-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .level-list {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .practice-content {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-container {
+        gap: 60px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@include mobile {
+
+    .container,
+    .header-container,
+    .hero-container,
+    .footer-container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .header {
+        height: 68px;
+    }
+
+    .logo {
+        font-size: 24px;
+
+        &-icon {
+            width: 40px;
+            height: 40px;
+
+            font-size: 20px;
+        }
+    }
+
+    .login-button {
+        padding: 10px 17px;
+
+        font-size: 14px;
+    }
+
+    .hero {
+        padding: 65px 0;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+    .hero h1 {
+        font-size: clamp(42px, 10vw, 58px);
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .hero-card {
+        width: min(320px, 100%);
+    }
+
+    .feature-grid,
+    .course-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .level-list {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .practice-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-container {
+        flex-direction: column;
+
+        gap: 45px;
+    }
+
+    .footer-links {
+        gap: 45px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .container,
+    .header-container,
+    .hero-container,
+    .footer-container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .section-header h2 {
+        font-size: 34px;
+    }
+
+    .section-header p {
+        font-size: 17px;
+    }
+
+    .hero-buttons {
+        width: 100%;
+    }
+
+    .primary-button,
+    .secondary-button {
+        width: 100%;
+
+        min-height: 50px;
+
+        font-size: 16px;
+    }
+
+    .practice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-links {
+        flex-direction: column;
+
+        gap: 28px;
+    }
+}
