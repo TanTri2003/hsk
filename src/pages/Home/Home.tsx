@@ -8,7 +8,7 @@ import Footer from "../../components/Home/Footer";
 import "./Home.scss";
 const Home = () => {
     return (
-        <div className="home">
+        <div className="Home">
             <Header />
 
             <main>
