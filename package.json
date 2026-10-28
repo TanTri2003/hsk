@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "tsx watch server/src/index.ts"
+    "server": "tsx watch server/src/index.ts",
+    "start:server": "tsx server/src/index.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
