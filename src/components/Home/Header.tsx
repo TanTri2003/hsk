@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const Header = () => {
     return (
         <header className="header">
@@ -14,12 +15,12 @@ const Header = () => {
                     <a href="#vocabulary">Từ vựng</a>
                     <a href="#grammar">Ngữ pháp</a>
                     <a href="#hsk">HSK</a>
-                    <a href="#hsk">Bài tập</a>
+                    <Link to="/classroom">Lớp học</Link>
                 </nav>
 
-                <button className="login-button">
+                <Link to="/login" className="login-button">
                     Đăng nhập
-                </button>
+                </Link>
 
             </div>
         </header>

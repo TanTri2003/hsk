@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+}
+
+enum UserStatus {
+  ACTIVE
+  LOCKED
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  username     String     @unique @db.VarChar(50)
+  passwordHash String     @db.VarChar(255)
+  fullName     String     @db.VarChar(100)
+  role         Role       @default(STUDENT)
+  status       UserStatus @default(ACTIVE)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  enrollments  Enrollment[]
+  submissions  Submission[]
+}
+
+model Class {
+  id          Int          @id @default(autoincrement())
+  name        String       @db.VarChar(100)
+  level       String       @db.VarChar(20)
+  description String?      @db.Text
+  createdAt   DateTime     @default(now())
+
+  enrollments Enrollment[]
+  schedules   Schedule[]
+  assignments Assignment[]
+  tests       Test[]
+}
+
+model Enrollment {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  classId    Int
+  enrolledAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  class Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, classId])
+}
+
+model Schedule {
+  id        Int      @id @default(autoincrement())
+  classId   Int
+  title     String   @db.VarChar(150)
+  startsAt  DateTime
+  endsAt    DateTime?
+  location  String?  @db.VarChar(200)
+  note      String?  @db.Text
+  class     Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+}
+
+model Assignment {
+  id          Int          @id @default(autoincrement())
+  classId     Int
+  title       String       @db.VarChar(150)
+  description String?      @db.Text
+  dueAt       DateTime?
+  createdAt   DateTime     @default(now())
+
+  class       Class        @relation(fields: [classId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+}
+
+model Test {
+  id          Int          @id @default(autoincrement())
+  classId     Int
+  title       String       @db.VarChar(150)
+  description String?      @db.Text
+  startsAt    DateTime?
+  endsAt      DateTime?
+  maxScore    Float        @default(100)
+
+  class       Class        @relation(fields: [classId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+}
+
+model Submission {
+  id           Int         @id @default(autoincrement())
+  userId       Int
+  assignmentId Int?
+  testId       Int?
+  score        Float?
+  submittedAt  DateTime    @default(now())
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignment Assignment? @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  test       Test?      @relation(fields: [testId], references: [id], onDelete: Cascade)
+}

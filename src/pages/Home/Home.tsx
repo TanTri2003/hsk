@@ -6,7 +6,6 @@ import LevelSection from "../../components/Home/LevelSection";
 import PracticeSection from "../../components/Home/PracticeSection";
 import Footer from "../../components/Home/Footer";
 import "./Home.scss";
-
 const Home = () => {
     return (
         <div className="home">
