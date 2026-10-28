@@ -12,16 +12,17 @@ const PORT = Number(process.env.PORT) || 5000;
 const allowedOrigins = [
   "http://localhost:5173",
   process.env.CLIENT_URL,
-].filter(Boolean);
+].filter((origin): origin is string => Boolean(origin));
 
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Origin không được phép truy cập"));
+        return callback(null, true);
       }
+
+      console.error("CORS blocked origin:", origin);
+      return callback(new Error("Origin không được phép truy cập"));
     },
     credentials: true,
   })
