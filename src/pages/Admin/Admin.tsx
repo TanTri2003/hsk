@@ -1,5 +1,11 @@
 
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import "./Admin.scss";
 
@@ -41,24 +47,70 @@ function Admin() {
 
   const token = sessionStorage.getItem("token");
 
+  // Xoa thong tin dang nhap va quay ve trang Login
+  const handleUnauthorized = useCallback(() => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+    navigate("/login", { replace: true });
+  }, [navigate]);
+
+  // Doc thong bao loi tu API
+  async function readResponse(response: Response): Promise<{
+    message?: string;
+    students?: Student[];
+    student?: Student;
+  }> {
+    try {
+      return await response.json();
+    } catch {
+      return {};
+    }
+  }
+
+  // Tai danh sach hoc vien
   const loadStudents = useCallback(async () => {
     const currentToken = sessionStorage.getItem("token");
 
-    if (!currentToken) return;
+    if (!currentToken) {
+      handleUnauthorized();
+      return;
+    }
 
     setLoadingStudents(true);
+    setMessage("");
 
     try {
       const response = await fetch(`${API_URL}/api/auth/students`, {
+        method: "GET",
         headers: {
           Authorization: `Bearer ${currentToken}`,
+          Accept: "application/json",
         },
       });
 
-      const data = await response.json();
+      const data = await readResponse(response);
+
+      if (response.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+
+      if (response.status === 403) {
+        throw new Error(
+          data.message || "Tai khoan khong co quyen Admin."
+        );
+      }
+
+      if (response.status === 404) {
+        throw new Error(
+          "API danh sach hoc vien chua ton tai tren backend Render. Hay kiem tra va deploy lai backend."
+        );
+      }
 
       if (!response.ok) {
-        throw new Error(data.message || "Không thể tải danh sách học viên");
+        throw new Error(
+          data.message || `Khong the tai danh sach (HTTP ${response.status}).`
+        );
       }
 
       setStudents(data.students ?? []);
@@ -66,18 +118,20 @@ function Admin() {
       setMessage(
         error instanceof Error
           ? error.message
-          : "Lỗi khi tải danh sách học viên"
+          : "Loi ket noi khi tai danh sach hoc vien."
       );
       setMessageType("error");
     } finally {
       setLoadingStudents(false);
     }
-  }, []);
+  }, [handleUnauthorized]);
 
+  // Kiem tra thong tin Admin truoc khi hien thi trang
   useEffect(() => {
+    const storedToken = sessionStorage.getItem("token");
     const storedUser = sessionStorage.getItem("user");
 
-    if (!token || !storedUser) {
+    if (!storedToken || !storedUser) {
       navigate("/login", { replace: true });
       return;
     }
@@ -85,19 +139,27 @@ function Admin() {
     try {
       const parsedUser: AdminUser = JSON.parse(storedUser);
 
-      if (parsedUser.role !== "ADMIN") {
-        navigate("/student", { replace: true });
+      if (
+        !parsedUser ||
+        typeof parsedUser.id !== "number" ||
+        typeof parsedUser.username !== "string" ||
+        parsedUser.role !== "ADMIN"
+      ) {
+        if (parsedUser?.role === "STUDENT") {
+          navigate("/student", { replace: true });
+        } else {
+          handleUnauthorized();
+        }
         return;
       }
 
       setUser(parsedUser);
     } catch {
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("user");
-      navigate("/login", { replace: true });
+      handleUnauthorized();
     }
-  }, [navigate, token]);
+  }, [navigate, handleUnauthorized, token]);
 
+  // Chi tai danh sach khi da xac dinh tai khoan Admin
   useEffect(() => {
     if (user?.role === "ADMIN") {
       void loadStudents();
@@ -110,9 +172,7 @@ function Admin() {
     navigate("/login", { replace: true });
   }
 
-  function handleInputChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ) {
+  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
 
     setForm((previous) => ({
@@ -121,24 +181,25 @@ function Admin() {
     }));
   }
 
+  // Tao tai khoan hoc vien
   async function handleCreateStudent(
-    event: React.FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>
   ) {
     event.preventDefault();
     setMessage("");
 
-    if (
-      !form.username.trim() ||
-      !form.fullName.trim() ||
-      !form.password
-    ) {
-      setMessage("Vui lòng nhập đầy đủ thông tin.");
+    const username = form.username.trim();
+    const fullName = form.fullName.trim();
+    const password = form.password;
+
+    if (!username || !fullName || !password) {
+      setMessage("Vui long nhap day du thong tin.");
       setMessageType("error");
       return;
     }
 
-    if (form.password.length < 8) {
-      setMessage("Mật khẩu phải có ít nhất 8 ký tự.");
+    if (password.length < 8) {
+      setMessage("Mat khau phai co it nhat 8 ky tu.");
       setMessageType("error");
       return;
     }
@@ -146,7 +207,7 @@ function Admin() {
     const currentToken = sessionStorage.getItem("token");
 
     if (!currentToken) {
-      navigate("/login", { replace: true });
+      handleUnauthorized();
       return;
     }
 
@@ -157,19 +218,39 @@ function Admin() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
           Authorization: `Bearer ${currentToken}`,
         },
         body: JSON.stringify({
-          username: form.username.trim(),
-          fullName: form.fullName.trim(),
-          password: form.password,
+          username,
+          fullName,
+          password,
         }),
       });
 
-      const data = await response.json();
+      const data = await readResponse(response);
+
+      if (response.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+
+      if (response.status === 403) {
+        throw new Error(
+          data.message || "Ban khong co quyen tao tai khoan hoc vien."
+        );
+      }
+
+      if (response.status === 404) {
+        throw new Error(
+          "API tao hoc vien chua ton tai tren backend Render. Hay kiem tra va deploy lai backend."
+        );
+      }
 
       if (!response.ok) {
-        throw new Error(data.message || "Không thể tạo tài khoản");
+        throw new Error(
+          data.message || `Tao tai khoan that bai (HTTP ${response.status}).`
+        );
       }
 
       setForm({
@@ -178,7 +259,7 @@ function Admin() {
         password: "",
       });
 
-      setMessage("Tạo tài khoản học viên thành công!");
+      setMessage("Tao tai khoan hoc vien thanh cong!");
       setMessageType("success");
 
       await loadStudents();
@@ -186,7 +267,7 @@ function Admin() {
       setMessage(
         error instanceof Error
           ? error.message
-          : "Có lỗi xảy ra khi tạo tài khoản"
+          : "Co loi xay ra khi tao tai khoan."
       );
       setMessageType("error");
     } finally {
@@ -198,7 +279,7 @@ function Admin() {
     return (
       <div className="admin-loading">
         <div className="admin-loading-spinner" />
-        <p>Đang tải trang quản trị...</p>
+        <p>Dang tai trang quan tri...</p>
       </div>
     );
   }
@@ -434,9 +515,7 @@ function Admin() {
             <div className="admin-student-list-heading">
               <div>
                 <h3>Danh sách học viên</h3>
-                <p>
-                  Tổng số: {students.length} tài khoản
-                </p>
+                <p>Tổng số: {students.length} tài khoản</p>
               </div>
 
               <button
@@ -455,7 +534,10 @@ function Admin() {
               </p>
             ) : students.length === 0 ? (
               <p className="admin-student-empty">
-                Chưa có tài khoản học viên hoặc chưa tải được dữ liệu.
+                Chưa có tài khoản học viên.
+                {messageType === "error" && message
+                  ? ` ${message}`
+                  : ""}
               </p>
             ) : (
               <div className="admin-student-table-wrapper">
@@ -480,9 +562,9 @@ function Admin() {
                         <td>{student.username}</td>
                         <td>
                           {student.createdAt
-                            ? new Date(student.createdAt).toLocaleDateString(
-                                "vi-VN"
-                              )
+                            ? new Date(
+                                student.createdAt
+                              ).toLocaleDateString("vi-VN")
                             : "—"}
                         </td>
                         <td>
