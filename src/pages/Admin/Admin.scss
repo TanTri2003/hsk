@@ -1,892 +1,1182 @@
-
 .admin-page {
-  display: flex;
-  min-height: 100vh;
-  min-height: 100dvh;
-  color: #000;
-  background: #fff;
-  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  // Thanh ben
-  .admin-sidebar {
-    position: sticky;
-    top: 0;
     display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    width: 270px;
-    height: 100vh;
-    height: 100dvh;
-    padding: 30px 18px 22px;
-    overflow-y: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    color: #000;
     background: #fff;
-    border-right: 1px solid #eee;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
 
-    .admin-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 10px;
-      margin-bottom: 44px;
-      font-size: 27px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
 
-      .admin-brand-icon {
-        display: grid;
-        place-items: center;
-        width: 46px;
-        height: 46px;
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    // Thanh ben
+    .admin-sidebar {
+        position: sticky;
+        top: 0;
+        display: flex;
+        flex-direction: column;
         flex-shrink: 0;
-        color: #fff;
-        background: #dc2626;
-        border-radius: 12px;
-        font-size: 27px;
-      }
-
-      strong {
-        color: #dc2626;
-      }
-    }
-
-    .admin-sidebar-label {
-      padding: 0 12px;
-      margin-bottom: 15px;
-      color: #737373;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1.2px;
-    }
-
-    .admin-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-
-      .admin-nav-item {
-        display: flex;
-        align-items: center;
-        gap: 13px;
-        min-height: 50px;
-        padding: 12px 14px;
-        color: #333;
-        border-radius: 10px;
-        font-size: 15px;
-        font-weight: 600;
-        transition: color 0.2s ease, background 0.2s ease;
-
-        .admin-nav-icon {
-          display: grid;
-          place-items: center;
-          width: 24px;
-          height: 24px;
-          flex-shrink: 0;
-          font-size: 22px;
-          line-height: 1;
-        }
-
-        &:hover {
-          color: #dc2626;
-          background: #fff1f1;
-        }
-
-        &.active {
-          color: #dc2626;
-          background: #fef2f2;
-          font-weight: 700;
-        }
-      }
-    }
-
-    .admin-sidebar-bottom {
-      margin-top: auto;
-      padding-top: 24px;
-
-      .admin-sidebar-note {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px 10px;
-        margin-bottom: 15px;
-        background: #fff7f7;
-        border: 1px solid #fee2e2;
-        border-radius: 12px;
-
-        .admin-note-icon {
-          display: grid;
-          place-items: center;
-          width: 42px;
-          height: 42px;
-          flex-shrink: 0;
-          color: #dc2626;
-          background: #fff;
-          border: 1px solid #fecaca;
-          border-radius: 10px;
-          font-size: 23px;
-        }
-
-        p {
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-          margin: 0;
-
-          strong {
-            color: #000;
-            font-size: 14px;
-          }
-
-          span {
-            color: #666;
-            font-size: 12px;
-            line-height: 1.6;
-          }
-        }
-      }
-
-      .admin-logout {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        width: 100%;
-        min-height: 48px;
-        padding: 12px 14px;
-        color: #dc2626;
+        width: 270px;
+        height: 100vh;
+        height: 100dvh;
+        padding: 30px 18px 22px;
+        overflow-y: auto;
         background: #fff;
-        border: 1px solid #fecaca;
-        border-radius: 10px;
-        font-family: inherit;
-        font-size: 15px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: color 0.2s ease, background 0.2s ease;
+        border-right: 1px solid #eee;
 
-        span {
-          font-size: 21px;
-        }
-
-        &:hover {
-          color: #fff;
-          background: #dc2626;
-          border-color: #dc2626;
-        }
-
-        &:focus-visible {
-          outline: 3px solid rgb(220 38 38 / 25%);
-          outline-offset: 3px;
-        }
-      }
-    }
-  }
-
-  // Noi dung chinh
-  .admin-main {
-    flex: 1;
-    min-width: 0;
-    padding: 34px clamp(24px, 4vw, 60px) 24px;
-    background: #fafafa;
-
-    .admin-topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 34px;
-
-      .admin-breadcrumb {
-        margin: 0 0 10px;
-        color: #666;
-        font-size: 14px;
-      }
-
-      h1 {
-        margin: 0;
-        color: #000;
-        font-size: clamp(28px, 3vw, 36px);
-        font-weight: 800;
-        line-height: 1.3;
-        letter-spacing: -0.7px;
-      }
-
-      .admin-profile {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-
-        .admin-avatar {
-          display: grid;
-          place-items: center;
-          width: 48px;
-          height: 48px;
-          flex-shrink: 0;
-          color: #fff;
-          background: #dc2626;
-          border-radius: 50%;
-          font-size: 20px;
-          font-weight: 800;
-        }
-
-        .admin-profile-info {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-
-          strong {
-            color: #000;
-            font-size: 15px;
-          }
-
-          span {
-            color: #666;
-            font-size: 13px;
-          }
-        }
-      }
-    }
-
-    // Khu vuc chao mung
-    .admin-welcome {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      min-height: 220px;
-      padding: 36px 40px;
-      margin-bottom: 40px;
-      overflow: hidden;
-      color: #000;
-      background: linear-gradient(120deg, #fff1f1, #fff);
-      border: 1px solid #fecaca;
-      border-radius: 18px;
-
-      .admin-welcome-content {
-        position: relative;
-        z-index: 1;
-        max-width: 650px;
-
-        .admin-welcome-tag {
-          display: inline-block;
-          padding: 8px 12px;
-          margin-bottom: 17px;
-          color: #b91c1c;
-          background: #fee2e2;
-          border-radius: 6px;
-          font-size: 12px;
-          font-weight: 800;
-          letter-spacing: 1px;
-        }
-
-        h2 {
-          margin: 0 0 14px;
-          color: #000;
-          font-size: clamp(26px, 3vw, 34px);
-          font-weight: 800;
-          line-height: 1.4;
-        }
-
-        p {
-          max-width: 540px;
-          margin: 0;
-          color: #525252;
-          font-size: 16px;
-          line-height: 1.9;
-        }
-      }
-
-      .admin-welcome-symbol {
-        display: grid;
-        place-items: center;
-        width: 135px;
-        height: 135px;
-        flex-shrink: 0;
-        color: #dc2626;
-        background: rgb(255 255 255 / 80%);
-        border: 1px solid #fecaca;
-        border-radius: 30px;
-        font-size: 86px;
-        font-weight: 700;
-        transform: rotate(5deg);
-      }
-    }
-
-    // Tieu de cac khu vuc
-    .admin-section-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 22px;
-
-      h2 {
-        margin: 0 0 8px;
-        color: #000;
-        font-size: 23px;
-        font-weight: 800;
-        line-height: 1.4;
-      }
-
-      p {
-        margin: 0;
-        color: #666;
-        font-size: 15px;
-        line-height: 1.7;
-      }
-    }
-
-    // The thong ke
-    .admin-statistics {
-      margin-bottom: 42px;
-
-      .admin-stat-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 20px;
-      }
-
-      .admin-stat-card {
-        min-width: 0;
-        padding: 25px 22px;
-        background: #fff;
-        border: 1px solid #eaeaea;
-        border-radius: 15px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-        &:hover {
-          transform: translateY(-3px);
-          border-color: #fecaca;
-          box-shadow: 0 12px 25px rgb(0 0 0 / 5%);
-        }
-
-        .admin-stat-top {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 24px;
-
-          .admin-stat-icon {
-            display: grid;
-            place-items: center;
-            width: 43px;
-            height: 43px;
-            flex-shrink: 0;
-            border-radius: 11px;
-            font-size: 24px;
-
-            &.red {
-              color: #fff;
-              background: #dc2626;
-            }
-
-            &.dark {
-              color: #fff;
-              background: #262626;
-            }
-
-            &.light-red {
-              color: #dc2626;
-              background: #fee2e2;
-            }
-
-            &.gray {
-              color: #404040;
-              background: #f0f0f0;
-            }
-          }
-
-          .admin-stat-label {
-            color: #404040;
-            font-size: 14px;
-            font-weight: 700;
-            line-height: 1.5;
-          }
-        }
-
-        .admin-stat-number {
-          display: block;
-          margin-bottom: 12px;
-          color: #000;
-          font-size: 36px;
-          font-weight: 800;
-          line-height: 1.2;
-        }
-
-        p {
-          margin: 0;
-          color: #666;
-          font-size: 13px;
-          line-height: 1.8;
-        }
-      }
-    }
-
-    // Cac chuc nang quan ly
-    .admin-management {
-      margin-bottom: 40px;
-
-      .admin-management-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
-      }
-
-      .admin-management-card {
-        display: flex;
-        align-items: flex-start;
-        gap: 17px;
-        min-width: 0;
-        padding: 25px;
-        background: #fff;
-        border: 1px solid #eaeaea;
-        border-radius: 14px;
-        transition: transform 0.2s ease, border-color 0.2s ease,
-          box-shadow 0.2s ease;
-
-        &:hover {
-          transform: translateY(-2px);
-          border-color: #fca5a5;
-          box-shadow: 0 10px 25px rgb(220 38 38 / 6%);
-
-          .admin-card-arrow {
-            color: #dc2626;
-            transform: translateX(4px);
-          }
-        }
-
-        .admin-management-icon {
-          display: grid;
-          place-items: center;
-          width: 49px;
-          height: 49px;
-          flex-shrink: 0;
-          color: #dc2626;
-          background: #fef2f2;
-          border: 1px solid #fee2e2;
-          border-radius: 12px;
-          font-size: 26px;
-        }
-
-        > div {
-          flex: 1;
-          min-width: 0;
-
-          h3 {
-            margin: 2px 0 10px;
-            color: #000;
-            font-size: 17px;
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 10px;
+            margin-bottom: 44px;
+            font-size: 27px;
             font-weight: 800;
-            line-height: 1.5;
-          }
+            letter-spacing: -0.5px;
 
-          p {
-            margin: 0;
+            .admin-brand-icon {
+                display: grid;
+                place-items: center;
+                width: 46px;
+                height: 46px;
+                flex-shrink: 0;
+                color: #fff;
+                background: #dc2626;
+                border-radius: 12px;
+                font-size: 27px;
+            }
+
+            strong {
+                color: #dc2626;
+            }
+        }
+
+        .admin-sidebar-label {
+            padding: 0 12px;
+            margin-bottom: 15px;
+            color: #737373;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+        }
+
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .admin-nav-item {
+                display: flex;
+                align-items: center;
+                gap: 13px;
+                min-height: 50px;
+                padding: 12px 14px;
+                color: #333;
+                border-radius: 10px;
+                font-size: 15px;
+                font-weight: 600;
+                transition: color 0.2s ease, background 0.2s ease;
+
+                .admin-nav-icon {
+                    display: grid;
+                    place-items: center;
+                    width: 24px;
+                    height: 24px;
+                    flex-shrink: 0;
+                    font-size: 22px;
+                    line-height: 1;
+                }
+
+                &:hover {
+                    color: #dc2626;
+                    background: #fff1f1;
+                }
+
+                &.active {
+                    color: #dc2626;
+                    background: #fef2f2;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .admin-sidebar-bottom {
+            margin-top: auto;
+            padding-top: 24px;
+
+            .admin-sidebar-note {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 16px 10px;
+                margin-bottom: 15px;
+                background: #fff7f7;
+                border: 1px solid #fee2e2;
+                border-radius: 12px;
+
+                .admin-note-icon {
+                    display: grid;
+                    place-items: center;
+                    width: 42px;
+                    height: 42px;
+                    flex-shrink: 0;
+                    color: #dc2626;
+                    background: #fff;
+                    border: 1px solid #fecaca;
+                    border-radius: 10px;
+                    font-size: 23px;
+                }
+
+                p {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    margin: 0;
+
+                    strong {
+                        color: #000;
+                        font-size: 14px;
+                    }
+
+                    span {
+                        color: #666;
+                        font-size: 12px;
+                        line-height: 1.6;
+                    }
+                }
+            }
+
+            .admin-logout {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+                min-height: 48px;
+                padding: 12px 14px;
+                color: #dc2626;
+                background: #fff;
+                border: 1px solid #fecaca;
+                border-radius: 10px;
+                font-family: inherit;
+                font-size: 15px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: color 0.2s ease, background 0.2s ease;
+
+                span {
+                    font-size: 21px;
+                }
+
+                &:hover {
+                    color: #fff;
+                    background: #dc2626;
+                    border-color: #dc2626;
+                }
+
+                &:focus-visible {
+                    outline: 3px solid rgb(220 38 38 / 25%);
+                    outline-offset: 3px;
+                }
+            }
+        }
+    }
+
+    // Noi dung chinh
+    .admin-main {
+        flex: 1;
+        min-width: 0;
+        padding: 34px clamp(24px, 4vw, 60px) 24px;
+        background: #fafafa;
+
+        .admin-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 34px;
+
+            .admin-breadcrumb {
+                margin: 0 0 10px;
+                color: #666;
+                font-size: 14px;
+            }
+
+            h1 {
+                margin: 0;
+                color: #000;
+                font-size: clamp(28px, 3vw, 36px);
+                font-weight: 800;
+                line-height: 1.3;
+                letter-spacing: -0.7px;
+            }
+
+            .admin-profile {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+
+                .admin-avatar {
+                    display: grid;
+                    place-items: center;
+                    width: 48px;
+                    height: 48px;
+                    flex-shrink: 0;
+                    color: #fff;
+                    background: #dc2626;
+                    border-radius: 50%;
+                    font-size: 20px;
+                    font-weight: 800;
+                }
+
+                .admin-profile-info {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+
+                    strong {
+                        color: #000;
+                        font-size: 15px;
+                    }
+
+                    span {
+                        color: #666;
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+
+        // Khu vuc chao mung
+        .admin-welcome {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            min-height: 220px;
+            padding: 36px 40px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            color: #000;
+            background: linear-gradient(120deg, #fff1f1, #fff);
+            border: 1px solid #fecaca;
+            border-radius: 18px;
+
+            .admin-welcome-content {
+                position: relative;
+                z-index: 1;
+                max-width: 650px;
+
+                .admin-welcome-tag {
+                    display: inline-block;
+                    padding: 8px 12px;
+                    margin-bottom: 17px;
+                    color: #b91c1c;
+                    background: #fee2e2;
+                    border-radius: 6px;
+                    font-size: 12px;
+                    font-weight: 800;
+                    letter-spacing: 1px;
+                }
+
+                h2 {
+                    margin: 0 0 14px;
+                    color: #000;
+                    font-size: clamp(26px, 3vw, 34px);
+                    font-weight: 800;
+                    line-height: 1.4;
+                }
+
+                p {
+                    max-width: 540px;
+                    margin: 0;
+                    color: #525252;
+                    font-size: 16px;
+                    line-height: 1.9;
+                }
+            }
+
+            .admin-welcome-symbol {
+                display: grid;
+                place-items: center;
+                width: 135px;
+                height: 135px;
+                flex-shrink: 0;
+                color: #dc2626;
+                background: rgb(255 255 255 / 80%);
+                border: 1px solid #fecaca;
+                border-radius: 30px;
+                font-size: 86px;
+                font-weight: 700;
+                transform: rotate(5deg);
+            }
+        }
+
+        // Tieu de cac khu vuc
+        .admin-section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 22px;
+
+            h2 {
+                margin: 0 0 8px;
+                color: #000;
+                font-size: 23px;
+                font-weight: 800;
+                line-height: 1.4;
+            }
+
+            p {
+                margin: 0;
+                color: #666;
+                font-size: 15px;
+                line-height: 1.7;
+            }
+        }
+
+        // The thong ke
+        .admin-statistics {
+            margin-bottom: 42px;
+
+            .admin-stat-grid {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 20px;
+            }
+
+            .admin-stat-card {
+                min-width: 0;
+                padding: 25px 22px;
+                background: #fff;
+                border: 1px solid #eaeaea;
+                border-radius: 15px;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+                &:hover {
+                    transform: translateY(-3px);
+                    border-color: #fecaca;
+                    box-shadow: 0 12px 25px rgb(0 0 0 / 5%);
+                }
+
+                .admin-stat-top {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    margin-bottom: 24px;
+
+                    .admin-stat-icon {
+                        display: grid;
+                        place-items: center;
+                        width: 43px;
+                        height: 43px;
+                        flex-shrink: 0;
+                        border-radius: 11px;
+                        font-size: 24px;
+
+                        &.red {
+                            color: #fff;
+                            background: #dc2626;
+                        }
+
+                        &.dark {
+                            color: #fff;
+                            background: #262626;
+                        }
+
+                        &.light-red {
+                            color: #dc2626;
+                            background: #fee2e2;
+                        }
+
+                        &.gray {
+                            color: #404040;
+                            background: #f0f0f0;
+                        }
+                    }
+
+                    .admin-stat-label {
+                        color: #404040;
+                        font-size: 14px;
+                        font-weight: 700;
+                        line-height: 1.5;
+                    }
+                }
+
+                .admin-stat-number {
+                    display: block;
+                    margin-bottom: 12px;
+                    color: #000;
+                    font-size: 36px;
+                    font-weight: 800;
+                    line-height: 1.2;
+                }
+
+                p {
+                    margin: 0;
+                    color: #666;
+                    font-size: 13px;
+                    line-height: 1.8;
+                }
+            }
+        }
+
+        // Cac chuc nang quan ly
+        .admin-management {
+            margin-bottom: 40px;
+
+            .admin-management-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px;
+            }
+
+            .admin-management-card {
+                display: flex;
+                align-items: flex-start;
+                gap: 17px;
+                min-width: 0;
+                padding: 25px;
+                background: #fff;
+                border: 1px solid #eaeaea;
+                border-radius: 14px;
+                transition: transform 0.2s ease, border-color 0.2s ease,
+                    box-shadow 0.2s ease;
+
+                &:hover {
+                    transform: translateY(-2px);
+                    border-color: #fca5a5;
+                    box-shadow: 0 10px 25px rgb(220 38 38 / 6%);
+
+                    .admin-card-arrow {
+                        color: #dc2626;
+                        transform: translateX(4px);
+                    }
+                }
+
+                .admin-management-icon {
+                    display: grid;
+                    place-items: center;
+                    width: 49px;
+                    height: 49px;
+                    flex-shrink: 0;
+                    color: #dc2626;
+                    background: #fef2f2;
+                    border: 1px solid #fee2e2;
+                    border-radius: 12px;
+                    font-size: 26px;
+                }
+
+                >div {
+                    flex: 1;
+                    min-width: 0;
+
+                    h3 {
+                        margin: 2px 0 10px;
+                        color: #000;
+                        font-size: 17px;
+                        font-weight: 800;
+                        line-height: 1.5;
+                    }
+
+                    p {
+                        margin: 0;
+                        color: #666;
+                        font-size: 14px;
+                        line-height: 1.9;
+                    }
+                }
+
+                .admin-card-arrow {
+                    flex-shrink: 0;
+                    color: #a3a3a3;
+                    font-size: 25px;
+                    transition: color 0.2s ease, transform 0.2s ease;
+                }
+            }
+        }
+
+        // Chan trang
+        .admin-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 22px 0 5px;
             color: #666;
-            font-size: 14px;
-            line-height: 1.9;
-          }
+            border-top: 1px solid #e5e5e5;
+            font-size: 13px;
+            line-height: 1.7;
         }
-
-        .admin-card-arrow {
-          flex-shrink: 0;
-          color: #a3a3a3;
-          font-size: 25px;
-          transition: color 0.2s ease, transform 0.2s ease;
-        }
-      }
     }
-
-    // Chan trang
-    .admin-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding: 22px 0 5px;
-      color: #666;
-      border-top: 1px solid #e5e5e5;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-  }
 }
 
 // Trang dang tai
 .admin-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  min-height: 100vh;
-  min-height: 100dvh;
-  color: #404040;
-  background: #fff;
-  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    color: #404040;
+    background: #fff;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
 
-  p {
-    margin: 0;
-    font-size: 16px;
-  }
+    p {
+        margin: 0;
+        font-size: 16px;
+    }
 
-  .admin-loading-spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #fee2e2;
-    border-top-color: #dc2626;
-    border-radius: 50%;
-    animation: admin-spin 0.8s linear infinite;
-  }
+    .admin-loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #fee2e2;
+        border-top-color: #dc2626;
+        border-radius: 50%;
+        animation: admin-spin 0.8s linear infinite;
+    }
 }
 
 @keyframes admin-spin {
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 // May tinh bang
 @media (max-width: 1100px) {
-  .admin-page {
-    .admin-sidebar {
-      width: 235px;
-      padding-right: 14px;
-      padding-left: 14px;
-    }
-
-    .admin-main {
-      padding-right: 25px;
-      padding-left: 25px;
-
-      .admin-statistics {
-        .admin-stat-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+    .admin-page {
+        .admin-sidebar {
+            width: 235px;
+            padding-right: 14px;
+            padding-left: 14px;
         }
-      }
+
+        .admin-main {
+            padding-right: 25px;
+            padding-left: 25px;
+
+            .admin-statistics {
+                .admin-stat-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+        }
     }
-  }
 }
 
 // Man hinh nho
 @media (max-width: 768px) {
-  .admin-page {
-    .admin-sidebar {
-      width: 205px;
-      padding: 22px 12px 16px;
+    .admin-page {
+        .admin-sidebar {
+            width: 205px;
+            padding: 22px 12px 16px;
 
-      .admin-brand {
-        gap: 8px;
-        padding: 0 5px;
-        margin-bottom: 30px;
-        font-size: 22px;
+            .admin-brand {
+                gap: 8px;
+                padding: 0 5px;
+                margin-bottom: 30px;
+                font-size: 22px;
 
-        .admin-brand-icon {
-          width: 39px;
-          height: 39px;
-          font-size: 23px;
+                .admin-brand-icon {
+                    width: 39px;
+                    height: 39px;
+                    font-size: 23px;
+                }
+            }
+
+            .admin-sidebar-label {
+                padding: 0 7px;
+                font-size: 10px;
+            }
+
+            .admin-nav {
+                .admin-nav-item {
+                    gap: 9px;
+                    padding: 11px 10px;
+                    font-size: 13px;
+                }
+            }
         }
-      }
 
-      .admin-sidebar-label {
-        padding: 0 7px;
-        font-size: 10px;
-      }
+        .admin-main {
+            padding: 24px 18px 18px;
 
-      .admin-nav {
-        .admin-nav-item {
-          gap: 9px;
-          padding: 11px 10px;
-          font-size: 13px;
+            .admin-topbar {
+                align-items: flex-start;
+
+                .admin-profile {
+                    .admin-profile-info {
+                        display: none;
+                    }
+                }
+            }
+
+            .admin-welcome {
+                min-height: 175px;
+                padding: 25px;
+
+                .admin-welcome-content {
+                    h2 {
+                        font-size: 25px;
+                    }
+
+                    p {
+                        font-size: 14px;
+                    }
+                }
+
+                .admin-welcome-symbol {
+                    width: 90px;
+                    height: 90px;
+                    border-radius: 22px;
+                    font-size: 58px;
+                }
+            }
+
+            .admin-management {
+                .admin-management-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
         }
-      }
     }
-
-    .admin-main {
-      padding: 24px 18px 18px;
-
-      .admin-topbar {
-        align-items: flex-start;
-
-        .admin-profile {
-          .admin-profile-info {
-            display: none;
-          }
-        }
-      }
-
-      .admin-welcome {
-        min-height: 175px;
-        padding: 25px;
-
-        .admin-welcome-content {
-          h2 {
-            font-size: 25px;
-          }
-
-          p {
-            font-size: 14px;
-          }
-        }
-
-        .admin-welcome-symbol {
-          width: 90px;
-          height: 90px;
-          border-radius: 22px;
-          font-size: 58px;
-        }
-      }
-
-      .admin-management {
-        .admin-management-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    }
-  }
 }
 
 // Dien thoai
 @media (max-width: 560px) {
-  .admin-page {
-    flex-direction: column;
-
-    .admin-sidebar {
-      position: relative;
-      top: auto;
-      width: 100%;
-      height: auto;
-      padding: 15px 16px;
-      border-right: none;
-      border-bottom: 1px solid #eee;
-
-      .admin-brand {
-        margin-bottom: 17px;
-      }
-
-      .admin-sidebar-label {
-        display: none;
-      }
-
-      .admin-nav {
-        flex-direction: row;
-        gap: 7px;
-        overflow-x: auto;
-        padding-bottom: 6px;
-
-        .admin-nav-item {
-          flex: 0 0 auto;
-          min-height: 42px;
-          padding: 9px 12px;
-          font-size: 13px;
-          white-space: nowrap;
-
-          .admin-nav-icon {
-            width: auto;
-            height: auto;
-            font-size: 18px;
-          }
-        }
-      }
-
-      .admin-sidebar-bottom {
-        margin-top: 14px;
-        padding-top: 0;
-
-        .admin-sidebar-note {
-          display: none;
-        }
-
-        .admin-logout {
-          min-height: 42px;
-          padding: 9px 12px;
-          font-size: 14px;
-        }
-      }
-    }
-
-    .admin-main {
-      padding: 23px 15px 18px;
-
-      .admin-topbar {
-        gap: 12px;
-        margin-bottom: 24px;
-
-        .admin-breadcrumb {
-          font-size: 12px;
-        }
-
-        h1 {
-          font-size: 26px;
-        }
-
-        .admin-profile {
-          .admin-avatar {
-            width: 41px;
-            height: 41px;
-            font-size: 17px;
-          }
-        }
-      }
-
-      .admin-welcome {
-        min-height: 0;
-        padding: 23px 20px;
-        margin-bottom: 30px;
-
-        .admin-welcome-content {
-          .admin-welcome-tag {
-            font-size: 10px;
-          }
-
-          h2 {
-            font-size: 23px;
-          }
-
-          p {
-            font-size: 13px;
-          }
-        }
-
-        .admin-welcome-symbol {
-          width: 58px;
-          height: 58px;
-          border-radius: 15px;
-          font-size: 38px;
-        }
-      }
-
-      .admin-section-heading {
-        h2 {
-          font-size: 20px;
-        }
-
-        p {
-          font-size: 13px;
-        }
-      }
-
-      .admin-statistics {
-        margin-bottom: 32px;
-
-        .admin-stat-grid {
-          gap: 12px;
-        }
-
-        .admin-stat-card {
-          padding: 17px 13px;
-
-          .admin-stat-top {
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 17px;
-
-            .admin-stat-label {
-              font-size: 12px;
-            }
-          }
-
-          .admin-stat-number {
-            font-size: 29px;
-          }
-
-          p {
-            font-size: 11px;
-          }
-        }
-      }
-
-      .admin-management {
-        .admin-management-grid {
-          gap: 13px;
-        }
-
-        .admin-management-card {
-          gap: 12px;
-          padding: 18px 14px;
-
-          .admin-management-icon {
-            width: 41px;
-            height: 41px;
-            font-size: 22px;
-          }
-
-          > div {
-            h3 {
-              font-size: 15px;
-            }
-
-            p {
-              font-size: 12px;
-            }
-          }
-
-          .admin-card-arrow {
-            font-size: 21px;
-          }
-        }
-      }
-
-      .admin-footer {
+    .admin-page {
         flex-direction: column;
-        align-items: flex-start;
-        font-size: 11px;
-      }
+
+        .admin-sidebar {
+            position: relative;
+            top: auto;
+            width: 100%;
+            height: auto;
+            padding: 15px 16px;
+            border-right: none;
+            border-bottom: 1px solid #eee;
+
+            .admin-brand {
+                margin-bottom: 17px;
+            }
+
+            .admin-sidebar-label {
+                display: none;
+            }
+
+            .admin-nav {
+                flex-direction: row;
+                gap: 7px;
+                overflow-x: auto;
+                padding-bottom: 6px;
+
+                .admin-nav-item {
+                    flex: 0 0 auto;
+                    min-height: 42px;
+                    padding: 9px 12px;
+                    font-size: 13px;
+                    white-space: nowrap;
+
+                    .admin-nav-icon {
+                        width: auto;
+                        height: auto;
+                        font-size: 18px;
+                    }
+                }
+            }
+
+            .admin-sidebar-bottom {
+                margin-top: 14px;
+                padding-top: 0;
+
+                .admin-sidebar-note {
+                    display: none;
+                }
+
+                .admin-logout {
+                    min-height: 42px;
+                    padding: 9px 12px;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .admin-main {
+            padding: 23px 15px 18px;
+
+            .admin-topbar {
+                gap: 12px;
+                margin-bottom: 24px;
+
+                .admin-breadcrumb {
+                    font-size: 12px;
+                }
+
+                h1 {
+                    font-size: 26px;
+                }
+
+                .admin-profile {
+                    .admin-avatar {
+                        width: 41px;
+                        height: 41px;
+                        font-size: 17px;
+                    }
+                }
+            }
+
+            .admin-welcome {
+                min-height: 0;
+                padding: 23px 20px;
+                margin-bottom: 30px;
+
+                .admin-welcome-content {
+                    .admin-welcome-tag {
+                        font-size: 10px;
+                    }
+
+                    h2 {
+                        font-size: 23px;
+                    }
+
+                    p {
+                        font-size: 13px;
+                    }
+                }
+
+                .admin-welcome-symbol {
+                    width: 58px;
+                    height: 58px;
+                    border-radius: 15px;
+                    font-size: 38px;
+                }
+            }
+
+            .admin-section-heading {
+                h2 {
+                    font-size: 20px;
+                }
+
+                p {
+                    font-size: 13px;
+                }
+            }
+
+            .admin-statistics {
+                margin-bottom: 32px;
+
+                .admin-stat-grid {
+                    gap: 12px;
+                }
+
+                .admin-stat-card {
+                    padding: 17px 13px;
+
+                    .admin-stat-top {
+                        align-items: flex-start;
+                        flex-direction: column;
+                        gap: 10px;
+                        margin-bottom: 17px;
+
+                        .admin-stat-label {
+                            font-size: 12px;
+                        }
+                    }
+
+                    .admin-stat-number {
+                        font-size: 29px;
+                    }
+
+                    p {
+                        font-size: 11px;
+                    }
+                }
+            }
+
+            .admin-management {
+                .admin-management-grid {
+                    gap: 13px;
+                }
+
+                .admin-management-card {
+                    gap: 12px;
+                    padding: 18px 14px;
+
+                    .admin-management-icon {
+                        width: 41px;
+                        height: 41px;
+                        font-size: 22px;
+                    }
+
+                    >div {
+                        h3 {
+                            font-size: 15px;
+                        }
+
+                        p {
+                            font-size: 12px;
+                        }
+                    }
+
+                    .admin-card-arrow {
+                        font-size: 21px;
+                    }
+                }
+            }
+
+            .admin-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 11px;
+            }
+        }
     }
-  }
 }
 
 // Dien thoai rat nho
 @media (max-width: 360px) {
-  .admin-page {
-    .admin-main {
-      padding-right: 11px;
-      padding-left: 11px;
+    .admin-page {
+        .admin-main {
+            padding-right: 11px;
+            padding-left: 11px;
 
-      .admin-welcome {
-        .admin-welcome-symbol {
-          display: none;
-        }
-      }
+            .admin-welcome {
+                .admin-welcome-symbol {
+                    display: none;
+                }
+            }
 
-      .admin-statistics {
-        .admin-stat-grid {
-          grid-template-columns: 1fr;
-        }
+            .admin-statistics {
+                .admin-stat-grid {
+                    grid-template-columns: 1fr;
+                }
 
-        .admin-stat-card {
-          .admin-stat-top {
-            flex-direction: row;
-            align-items: center;
-          }
+                .admin-stat-card {
+                    .admin-stat-top {
+                        flex-direction: row;
+                        align-items: center;
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .admin-page *,
-  .admin-page *::before,
-  .admin-page *::after {
-    transition-duration: 0.01ms !important;
-  }
 
-  .admin-loading .admin-loading-spinner {
-    animation-duration: 1.5s;
-  }
+    .admin-page *,
+    .admin-page *::before,
+    .admin-page *::after {
+        transition-duration: 0.01ms !important;
+    }
+
+    .admin-loading .admin-loading-spinner {
+        animation-duration: 1.5s;
+    }
+}
+
+.admin-student-management {
+    margin-bottom: 42px;
+    scroll-margin-top: 24px;
+
+    .admin-student-form-card,
+    .admin-student-list-card {
+        padding: 28px;
+        margin-bottom: 22px;
+        background: #fff;
+        border: 1px solid #eaeaea;
+        border-radius: 16px;
+    }
+
+    .admin-student-form-card {
+        h3 {
+            margin: 0 0 8px;
+            color: #111;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .admin-student-form-description {
+            margin: 0 0 24px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .admin-student-form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .admin-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
+
+            span {
+                color: #262626;
+                font-size: 14px;
+                font-weight: 700;
+            }
+
+            input {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 12px 14px;
+                color: #171717;
+                background: #fff;
+                border: 1px solid #d4d4d4;
+                border-radius: 9px;
+                outline: none;
+                font: inherit;
+                font-size: 14px;
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+                &::placeholder {
+                    color: #a3a3a3;
+                }
+
+                &:focus {
+                    border-color: #dc2626;
+                    box-shadow: 0 0 0 3px rgb(220 38 38 / 10%);
+                }
+            }
+        }
+
+        .admin-create-student-button {
+            align-self: flex-start;
+            min-height: 46px;
+            padding: 12px 22px;
+            color: #fff;
+            background: #dc2626;
+            border: 1px solid #dc2626;
+            border-radius: 9px;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease;
+
+            &:hover:not(:disabled) {
+                background: #b91c1c;
+            }
+
+            &:disabled {
+                opacity: 0.65;
+                cursor: not-allowed;
+            }
+        }
+
+        .admin-form-message {
+            padding: 12px 14px;
+            border-radius: 9px;
+            font-size: 14px;
+            line-height: 1.6;
+
+            &.success {
+                color: #166534;
+                background: #f0fdf4;
+                border: 1px solid #bbf7d0;
+            }
+
+            &.error {
+                color: #b91c1c;
+                background: #fef2f2;
+                border: 1px solid #fecaca;
+            }
+        }
+    }
+
+    .admin-student-list-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 22px;
+
+        h3 {
+            margin: 0 0 6px;
+            color: #111;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        p {
+            margin: 0;
+            color: #737373;
+            font-size: 14px;
+        }
+
+        .admin-refresh-button {
+            flex-shrink: 0;
+            min-height: 40px;
+            padding: 9px 14px;
+            color: #b91c1c;
+            background: #fff;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+
+            &:hover:not(:disabled) {
+                background: #fef2f2;
+            }
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .admin-student-empty {
+        padding: 28px 12px;
+        margin: 0;
+        color: #737373;
+        background: #fafafa;
+        border: 1px dashed #d4d4d4;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .admin-student-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .admin-student-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 14px;
+
+        th,
+        td {
+            padding: 15px 14px;
+            border-bottom: 1px solid #eee;
+            white-space: nowrap;
+        }
+
+        th {
+            color: #525252;
+            background: #fafafa;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+
+        td {
+            color: #404040;
+        }
+
+        tbody tr {
+            transition: background 0.2s ease;
+
+            &:hover {
+                background: #fffafa;
+            }
+
+            &:last-child td {
+                border-bottom: none;
+            }
+        }
+
+        .admin-student-name {
+            color: #171717;
+            font-weight: 700;
+        }
+
+        .admin-student-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+
+            &.active {
+                color: #166534;
+                background: #dcfce7;
+            }
+
+            &.locked {
+                color: #991b1b;
+                background: #fee2e2;
+            }
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .admin-page .admin-main .admin-student-management {
+        .admin-student-form-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .admin-student-form-card,
+        .admin-student-list-card {
+            padding: 22px;
+        }
+    }
+}
+
+@media (max-width: 560px) {
+    .admin-page .admin-main .admin-student-management {
+        .admin-student-form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .admin-student-form-card,
+        .admin-student-list-card {
+            padding: 17px 14px;
+        }
+
+        .admin-student-form-card h3,
+        .admin-student-list-heading h3 {
+            font-size: 17px;
+        }
+
+        .admin-student-list-heading {
+            align-items: flex-start;
+        }
+
+        .admin-student-table {
+            font-size: 13px;
+
+            th,
+            td {
+                padding: 12px 10px;
+            }
+        }
+
+        .admin-create-student-button {
+            width: 100%;
+        }
+    }
 }
